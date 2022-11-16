@@ -11,7 +11,7 @@ namespace Services.Fakers
     {
         public ShoppingListFaker()
         {
-            RuleFor(x => x.Name, x => x.Commerce.ProductName());
+            RuleFor(x => x.Name, x => x.Name.Random.String2(15));
         }
     }
 }

@@ -5,6 +5,9 @@
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Services;
+using Services.Fakers;
+using Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,11 +15,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+builder.Services.AddSingleton<IShoppingListService, ShoppingListService>();
+builder.Services.AddTransient<ShoppingListFaker>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
 app.UseHttpsRedirection();
+
+//app.UseResponseCaching();
 
 app.Use(async (httpContext, next) =>
 {
