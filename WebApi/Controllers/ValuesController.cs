@@ -27,7 +27,25 @@ namespace WebApi.Controllers
         [HttpGet("{param}")] //przekazanie parametru w adresie
         public string GetValues(int param, string text1, string? text2) //opcjonlanie można dodać parametry na zasadzie klucz wartrość (?text1=hello&text2=bye)
         {
-            return text1 +  string.Join(",", Enumerable.Range(0, param).Select(x => x.ToString())) + text2;
+            return text1 + string.Join(",", Enumerable.Range(0, param).Select(x => x.ToString())) + text2;
+        }
+
+        [HttpPost]
+        public string Post(string values)
+        {
+            return "Post: " + values;
+        }
+
+        [HttpPut("{id}")]
+        public string Put(int id, string values)
+        {
+            return $"{id}: " + values;
+        }
+
+        [HttpDelete("{id}")]
+        public string Delete(int id)
+        {
+            return $"{id} deleted ";
         }
     }
 }
