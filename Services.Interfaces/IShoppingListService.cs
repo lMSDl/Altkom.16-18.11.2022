@@ -3,12 +3,7 @@ using System.Collections.Generic;
 
 namespace Services.Interfaces
 {
-    public interface IShoppingListService
+    public interface IShoppingListService : ICrudService<ShoppingList>
     {
-        Task<ShoppingList> CreateAsync(ShoppingList entity);
-        Task<ShoppingList?> ReadAsync(int id);
-        Task<IEnumerable<ShoppingList>> ReadAsync();
-        Task UpdateAsync(int id, ShoppingList entity);
-        Task DeleteAsync(int id);
     }
 }

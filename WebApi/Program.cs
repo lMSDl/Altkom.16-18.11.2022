@@ -5,6 +5,7 @@
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Models;
 using Services;
 using Services.Fakers;
 using Services.Interfaces;
@@ -17,6 +18,11 @@ builder.Services.AddControllers();
 
 builder.Services.AddSingleton<IShoppingListService, ShoppingListService>();
 builder.Services.AddTransient<ShoppingListFaker>();
+
+builder.Services.AddSingleton<ICrudService<User>, CrudService<User>>();
+builder.Services.AddTransient<BaseFaker<User>, UserFaker>();
+builder.Services.AddSingleton<IShoppingListItemsService, ShoppingListItemService>();
+builder.Services.AddTransient<ShoppingListItemFaker>();
 
 var app = builder.Build();
 
