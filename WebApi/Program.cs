@@ -17,14 +17,12 @@ app.UseHttpsRedirection();
 
 app.Use(async (httpContext, next) =>
 {
-
     Console.WriteLine("Before Use1");
     await next();
     Console.WriteLine("After Use1");
 });
 app.Use(async (httpContext, next) =>
 {
-
     Console.WriteLine("Before Use2");
     await next();
     Console.WriteLine("After Use2");
