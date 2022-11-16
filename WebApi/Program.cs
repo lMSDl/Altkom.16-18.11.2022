@@ -3,6 +3,9 @@
 //    public static void Main(string[] args)
 //    {
 
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -32,6 +35,10 @@ app.Use(async (httpContext, next) =>
 app.UseAuthorization();
 
 app.MapControllers();
+
+//Minimal API
+app.MapGet("/hello", () => "Hi!");
+app.MapGet("/sum", /*[Authorize]*/ (int value1, int value2) => value1 + value2);
 
 app.Run();
 
