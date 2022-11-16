@@ -15,17 +15,51 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public Task<IEnumerable<ShoppingList>> Get()
+        public async Task<IActionResult> Get()
         {
-            return _service.ReadAsync();
+            return Ok(await _service.ReadAsync());
         }
 
         [HttpGet("{id}")]
-        public Task<ShoppingList?> Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            var result = _service.ReadAsync(id);
+            var result = await _service.ReadAsync(id);
+            if(result == null)
+                return NotFound();
 
-            return result;
+            return Ok(result);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Post(ShoppingList shoppingList)
+        {
+            shoppingList = await _service.CreateAsync(shoppingList);
+
+            return CreatedAtAction(nameof(Get), new { id = shoppingList.Id }, shoppingList);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, ShoppingList shoppingList)
+        {
+            var result = await _service.ReadAsync(id);
+            if (result == null)
+                return NotFound();
+
+            await _service.UpdateAsync(id, shoppingList);
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var result = await _service.ReadAsync(id);
+            if (result == null)
+                return NotFound();
+            await _service.DeleteAsync(id);
+
+            return NoContent();
         }
     }
 }

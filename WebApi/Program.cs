@@ -24,7 +24,7 @@ var app = builder.Build();
 
 app.UseHttpsRedirection();
 
-//app.UseResponseCaching();
+//app.UseResponseCaching(); // https://learn.microsoft.com/en-us/aspnet/core/performance/caching/response?view=aspnetcore-6.0
 
 app.Use(async (httpContext, next) =>
 {
