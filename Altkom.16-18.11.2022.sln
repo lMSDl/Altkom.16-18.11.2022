@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Servic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{0D890D58-3E37-45F3-AFBE-7380F491F040}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OWIN", "OWIN\OWIN.csproj", "{6E37C9B2-12C5-4DD5-807D-5F3FB463F24E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{0D890D58-3E37-45F3-AFBE-7380F491F040}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D890D58-3E37-45F3-AFBE-7380F491F040}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D890D58-3E37-45F3-AFBE-7380F491F040}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E37C9B2-12C5-4DD5-807D-5F3FB463F24E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E37C9B2-12C5-4DD5-807D-5F3FB463F24E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E37C9B2-12C5-4DD5-807D-5F3FB463F24E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E37C9B2-12C5-4DD5-807D-5F3FB463F24E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
