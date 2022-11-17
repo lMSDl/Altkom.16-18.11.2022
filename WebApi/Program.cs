@@ -3,9 +3,12 @@
 //    public static void Main(string[] args)
 //    {
 
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using Models.Validators;
 using Services;
 using Services.Fakers;
 using Services.Interfaces;
@@ -15,6 +18,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+//automatyczna rejestracja walidatorów z assembly zawieraj¹cego wskazany typ
+builder.Services.AddFluentValidationAutoValidation(/*x => x.RegisterValidatorsFromAssemblyContaining<ShoppingListItemValidator>()*/);
+
+//rêczna rejestracja walidatorów
+builder.Services.AddTransient<IValidator<ShoppingListItem>, ShoppingListItemValidator>();
+
 
 builder.Services.AddSingleton<IShoppingListService, ShoppingListService>();
 builder.Services.AddTransient<ShoppingListFaker>();
@@ -23,6 +32,11 @@ builder.Services.AddSingleton<ICrudService<User>, CrudService<User>>();
 builder.Services.AddTransient<BaseFaker<User>, UserFaker>();
 builder.Services.AddSingleton<IShoppingListItemsService, ShoppingListItemService>();
 builder.Services.AddTransient<ShoppingListItemFaker>();
+
+//wy³¹czenie automatycznej walidacji modelu
+//builder.Services.Configure<ApiBehaviorOptions>(x => x.SuppressModelStateInvalidFilter = true);
+
+
 
 var app = builder.Build();
 

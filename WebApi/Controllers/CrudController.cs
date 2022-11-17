@@ -32,7 +32,7 @@ namespace WebApi.Controllers
 
 
         [HttpPost("/api/[controller]")]
-        public async Task<IActionResult> Post(T entity)
+        public virtual async Task<IActionResult> Post(T entity)
         {
             entity = await _service.CreateAsync(entity);
 
