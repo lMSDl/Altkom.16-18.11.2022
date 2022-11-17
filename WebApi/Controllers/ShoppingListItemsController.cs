@@ -20,5 +20,11 @@ namespace WebApi.Controllers
         {
             return Ok(await _service.ReadFromParentAsync(parentId));
         }
+
+        [NonAction] // wyłączenie akcji z obsługi - tak jakby nigdy nie była zaimplementowana w danym kontrolerze
+        public override Task<IActionResult> Delete(int id)
+        {
+            return base.Delete(id);
+        }
     }
 }

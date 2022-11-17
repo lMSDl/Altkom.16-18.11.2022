@@ -52,7 +52,7 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete("/api/[controller]/{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public virtual async Task<IActionResult> Delete(int id)
         {
             var result = await _service.ReadAsync(id);
             if (result == null)
