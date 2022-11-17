@@ -12,13 +12,31 @@ using Models.Validators;
 using Services;
 using Services.Fakers;
 using Services.Interfaces;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using WebApi.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    /*.AddJsonOptions(x =>
+    {
+        x.JsonSerializerOptions.IgnoreReadOnlyProperties = true;
+        x.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault;
+        x.JsonSerializerOptions.NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals;
+        x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    })*/
+    .AddNewtonsoftJson(x =>
+    {
+        x.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+        x.SerializerSettings.DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore;
+        x.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
+        //x.SerializerSettings.DateFormatString = "yyy MM-d _ ff: ss;mm";
+    });
+
+
 //automatyczna rejestracja walidatorów z assembly zawieraj¹cego wskazany typ
 builder.Services.AddFluentValidationAutoValidation(/*x => x.RegisterValidatorsFromAssemblyContaining<ShoppingListItemValidator>()*/);
 
@@ -40,6 +58,8 @@ builder.Services.AddTransient<ShoppingListItemFaker>();
 builder.Services.AddScoped<ConsoleLogFilter>();
 builder.Services.AddSingleton(x => new LimiterFilter(5));
 builder.Services.AddScoped<UniqueUserFilter>();
+
+
 
 
 var app = builder.Build();
