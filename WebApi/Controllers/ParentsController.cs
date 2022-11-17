@@ -9,7 +9,7 @@ namespace WebApi.Controllers
     public class ParentsController : ControllerBase
     {
 
-        public IActionResult Get()
+        /*public IActionResult Get()
         {
             var parent = new Parent();
 
@@ -17,7 +17,7 @@ namespace WebApi.Controllers
             parent.DateTime = DateTime.Now;
 
 
-            var child = new Child { Name = "Child1", Age = 12, /*Parent = parent*/ };
+            var child = new Child { Name = "Child1", Age = 12, *//*Parent = parent*//* };
             
             parent.Children = new List<Child>
             {
@@ -29,7 +29,7 @@ namespace WebApi.Controllers
             };
 
             return Ok(parent);
-        }
+        }*/
 
     }
 }

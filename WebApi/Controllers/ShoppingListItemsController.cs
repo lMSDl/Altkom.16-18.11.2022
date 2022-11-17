@@ -16,6 +16,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<ShoppingListItem>),StatusCodes.Status200OK)]
         public async Task<IActionResult> GetColletion(int parentId)
         {
             return Ok(await _service.ReadFromParentAsync(parentId));

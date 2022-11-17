@@ -60,7 +60,9 @@ builder.Services.AddScoped<ConsoleLogFilter>();
 builder.Services.AddSingleton(x => new LimiterFilter(5));
 builder.Services.AddScoped<UniqueUserFilter>();
 
-
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(x => x.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "WebApi", Version = "v1" }))
+    .AddSwaggerGenNewtonsoftSupport();
 
 
 var app = builder.Build();
@@ -70,6 +72,9 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 
 app.UseHttpsRedirection();
+
+app.UseSwagger();
+app.UseSwaggerUI(x => x.SwaggerEndpoint("/swagger/v1/swagger.json", "SwaggerWebApi v1"));
 
 //app.UseResponseCaching(); // https://learn.microsoft.com/en-us/aspnet/core/performance/caching/response?view=aspnetcore-6.0
 
