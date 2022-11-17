@@ -10,9 +10,10 @@ namespace Models
     {
         public string? Name { get; set; }
 
-        public DateOnly DateTime { get; set; }
+        public DateTime DateTime { get; set; }
 
         public IEnumerable<Child>? Children { get; set; }
+
 
         public string ClassName => nameof(Parent);
     }

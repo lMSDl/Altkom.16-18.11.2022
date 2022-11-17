@@ -5,6 +5,7 @@
 
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models;
@@ -20,7 +21,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers()
+builder.Services.AddControllers(x => x.Filters.Add<ModelStateLoggerFilter>())
     /*.AddJsonOptions(x =>
     {
         x.JsonSerializerOptions.IgnoreReadOnlyProperties = true;
@@ -53,7 +54,7 @@ builder.Services.AddSingleton<IShoppingListItemsService, ShoppingListItemService
 builder.Services.AddTransient<ShoppingListItemFaker>();
 
 //wy³¹czenie automatycznej walidacji modelu
-//builder.Services.Configure<ApiBehaviorOptions>(x => x.SuppressModelStateInvalidFilter = true);
+builder.Services.Configure<ApiBehaviorOptions>(x => x.SuppressModelStateInvalidFilter = true);
 
 builder.Services.AddScoped<ConsoleLogFilter>();
 builder.Services.AddSingleton(x => new LimiterFilter(5));
@@ -63,6 +64,8 @@ builder.Services.AddScoped<UniqueUserFilter>();
 
 
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 
