@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Models;
 using Services.Interfaces;
+using WebApi.Filters;
 
 namespace WebApi.Controllers
 {
+    [ServiceFilter(typeof(ConsoleLogFilter))]
     public class UsersController : CrudController<User>
     {
         private readonly ICrudService<User> _service;
@@ -13,9 +16,10 @@ namespace WebApi.Controllers
             _service = service;
         }
 
+        [ServiceFilter(typeof(UniqueUserFilter))]
         public override async Task<IActionResult> Post(User entity)
         {
-            var duplicate = (await _service.ReadAsync()).Where(x => x.Name == entity.Name).SingleOrDefault();
+           /* var duplicate = (await _service.ReadAsync()).Where(x => x.Name == entity.Name).SingleOrDefault();
 
             if (duplicate != null)
             {
@@ -26,7 +30,7 @@ namespace WebApi.Controllers
             if(!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-            }
+            }*/
 
             return await base.Post(entity);
         }

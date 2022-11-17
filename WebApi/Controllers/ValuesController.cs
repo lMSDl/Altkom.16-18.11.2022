@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.Filters;
 
 namespace WebApi.Controllers
 {
     //[Route("api/[controller]")] // [controller] - w to miejsce zostanie wpisana nazwa kontrolera
     //[ApiController]
+    [ServiceFilter(typeof(LimiterFilter))]
     public class ValuesController : ApiController //ControllerBase
     {
         //https://localhost:7027/api/v2/values //v2 dziedziczone z ApiController

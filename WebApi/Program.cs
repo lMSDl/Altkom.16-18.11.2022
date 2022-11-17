@@ -12,6 +12,7 @@ using Models.Validators;
 using Services;
 using Services.Fakers;
 using Services.Interfaces;
+using WebApi.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,6 +37,9 @@ builder.Services.AddTransient<ShoppingListItemFaker>();
 //wy³¹czenie automatycznej walidacji modelu
 //builder.Services.Configure<ApiBehaviorOptions>(x => x.SuppressModelStateInvalidFilter = true);
 
+builder.Services.AddScoped<ConsoleLogFilter>();
+builder.Services.AddSingleton(x => new LimiterFilter(5));
+builder.Services.AddScoped<UniqueUserFilter>();
 
 
 var app = builder.Build();
