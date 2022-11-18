@@ -33,7 +33,12 @@ Task SignalR_Reconnecting(Exception? arg)
 
 signalR.On<string>(nameof(Welcome), Welcome);
 signalR.On<string>("TextMessage", x => Console.WriteLine(x));
+signalR.On<User>(nameof(NewUser), NewUser);
 
+void NewUser(User user)
+{
+    Console.WriteLine($"Id: {user.Id}, Login: {user.Name}");
+}
 
 
 async void Welcome(string message)

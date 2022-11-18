@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using Models;
 
 namespace WebApi.SignalR
 {
