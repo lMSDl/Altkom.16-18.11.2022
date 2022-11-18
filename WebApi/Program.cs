@@ -68,6 +68,7 @@ builder.Services.AddSwaggerGen(x => x.SwaggerDoc("v1", new Microsoft.OpenApi.Mod
 
 builder.Services.AddSignalR();
 
+
 var app = builder.Build();
 
 
