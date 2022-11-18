@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package users;
+
+option csharp_namespace = "GrpcService.Protos.Users";
+
+
+service GrpcUsers {
+	rpc Create(User) returns (User);
+	rpc ReadById(Id) returns (User);
+	rpc Read(Void) returns (Users);
+	rpc Update(Id) returns (Void);
+	rpc Delete(Id) returns (Void);
+}
+
+message Void {
+}
+
+message Id {
+	int32 value = 1;
+}
+
+message User {
+	int32 id = 1;
+	string name = 2;
+	string password = 3;
+}
+
+message Users {
+	repeated User collection = 1;
+}
