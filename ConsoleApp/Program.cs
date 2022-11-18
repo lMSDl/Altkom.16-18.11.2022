@@ -8,7 +8,26 @@ using static System.Net.WebRequestMethods;
 
 var signalR = new HubConnectionBuilder()
     .WithUrl("https://localhost:7027/SignalR/Demo")
+    .WithAutomaticReconnect()
     .Build();
+
+
+signalR.Reconnecting += SignalR_Reconnecting;
+signalR.Reconnected += SignalR_Reconnected;
+
+Task SignalR_Reconnected(string? arg)
+{
+    Console.WriteLine("Connected");
+    return Task.CompletedTask;
+}
+
+Task SignalR_Reconnecting(Exception? arg)
+{
+    if(arg != null)
+        Console.WriteLine(arg.Message);
+    Console.WriteLine("Reconnecting...");
+    return Task.CompletedTask;
+}
 
 //signalR.On<string>("Welcome", x => Console.WriteLine(x));
 
