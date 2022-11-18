@@ -1,5 +1,6 @@
 ﻿
 using Grpc.Net.Client;
+using GrpcService.Protos.Stream;
 using Microsoft.AspNetCore.SignalR.Client;
 using Models;
 using System.Net.Http.Headers;
@@ -14,6 +15,41 @@ var users = await client.ReadAsync(new GrpcService.Protos.Users.Void());
 var user = await client.ReadByIdAsync(new GrpcService.Protos.Users.Id { Value = 1 });
 
 user = await client.ReadByIdAsync(new GrpcService.Protos.Users.Id { Value = 100 });
+
+
+var streamClient = new GrpcService.Protos.Stream.GrpcStream.GrpcStreamClient(grpcChannel);
+
+var downStream = streamClient.FromServer(new Request { Text = "Ala ma kota" });
+
+var upStream = streamClient.ToServer();
+
+while(await downStream.ResponseStream.MoveNext(CancellationToken.None))
+{
+    Console.WriteLine(downStream.ResponseStream.Current.Text);
+    await upStream.RequestStream.WriteAsync(new Request { Text = downStream.ResponseStream.Current.Text.ToUpper() });
+}
+
+await upStream.RequestStream.CompleteAsync();
+var response = upStream.ResponseAsync.Result;
+
+
+var streams = streamClient.FromToServer();
+
+_ = Task.Run(async () =>
+{
+    for (int i = 0; i < int.MaxValue; i++)
+    {
+        await streams.RequestStream.WriteAsync(new Request { Text = i.ToString() });
+    }
+    await streams.RequestStream.CompleteAsync();
+});
+_ = Task.Run(async () =>
+{
+    while(await streams.ResponseStream.MoveNext(CancellationToken.None))
+    {
+        Console.WriteLine(streams.ResponseStream.Current.Text);
+    }
+});
 
 
 Console.ReadLine();
