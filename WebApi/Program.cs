@@ -16,6 +16,7 @@ using Services.Interfaces;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using WebApi.Filters;
+using WebApi.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -65,6 +66,8 @@ builder.Services.AddSwaggerGen(x => x.SwaggerDoc("v1", new Microsoft.OpenApi.Mod
     .AddSwaggerGenNewtonsoftSupport();
 
 
+builder.Services.AddSignalR();
+
 var app = builder.Build();
 
 
@@ -95,6 +98,8 @@ app.Use(async (httpContext, next) =>
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHub<DemoHub>("SignalR/Demo");
 
 //Minimal API
 app.MapGet("/hello", () => "Hi!");
